@@ -87,6 +87,8 @@ function moveForward(rover) {
     console.log(`* Current rover direction is ${rover.direction} *`);
 };
 
+// PILOT FUNCTION USING 'l', 'r', 'f'
+
 function pilotRover(str) {
     for (i = 0; i < str.length; i++) {
         switch(str[i]) {
@@ -102,12 +104,41 @@ function pilotRover(str) {
             moveForward(rover);
             rover.travelLog.push("moveForward was called");
             break;
-        }
-      }
+        };
+    };
+    console.log("Rover's history: ", rover.travelLog);
+    grid[rover.x][rover.y] = rover.direction;
+    console.table(grid);
 };
 
-pilotRover("rfffrfflffr");
-console.log("Rover's history: ", rover.travelLog);
+// PROMPT
 
-grid[rover.x][rover.y] = rover.direction;
-console.table(grid);
+const prompt = require("prompt");
+
+const properties = [
+    {
+        name: "move",
+        description: "What's rover's next move ?",
+        type: "string",
+        validator: /^[lfr]+$/,
+        warning: "Invalid output, only use 'l' for left, 'r' for right, and 'f' for forward"
+    }
+];
+
+function play () {
+
+    prompt.start();
+
+    function onErr(err) {
+    return console.log("Error", err);
+    };
+
+    prompt.get(properties, function (err, res) {
+        if (err) {
+            return onErr(err);
+        };
+        pilotRover(res.move);
+    });
+};
+
+play();
