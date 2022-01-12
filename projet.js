@@ -36,7 +36,7 @@ function turnLeft(rover) {
           rover.direction = "N";
           break; 
       };
-    console.log(`Turning left, rover is now going to direction ${rover.direction}`);  
+    return console.log(`Turning left, rover is now going to direction ${rover.direction}`);  
 };
 
 // TURN RIGHT FUNCTION
@@ -56,7 +56,7 @@ function turnRight(rover) {
           rover.direction = "N";
           break; 
       };
-    console.log(`Turning right, rover is now going to direction ${rover.direction}`); 
+    return console.log(`Turning right, rover is now going to direction ${rover.direction}`); 
 };
 
 // MOVING FUNCTION
@@ -83,14 +83,20 @@ function moveForward(rover) {
     };
 
     console.log(`moveForward was called.`);
-    console.log(`Current rover position is x: ${rover.x}, y: ${rover.y}`);
+    console.log(`Current rover position = x: ${rover.x}, y: ${rover.y}`);
     console.log(`Current rover direction is ${rover.direction}`);
 };
 
-console.log(moveForward(rover));
-console.log(turnRight(rover));
-console.log(moveForward(rover));
-console.log(moveForward(rover));
-console.log(turnRight(rover));
-console.log(moveForward(rover));
-console.log(moveForward(rover));
+(moveForward(rover));
+(turnRight(rover));
+(moveForward(rover));
+(moveForward(rover));
+(turnRight(rover));
+(moveForward(rover));
+(moveForward(rover));
+(turnLeft(rover));
+(moveForward(rover));
+
+grid[rover.x][rover.y] = rover.direction;
+
+console.table(grid);
