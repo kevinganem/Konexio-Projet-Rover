@@ -1,5 +1,6 @@
 // PROJECT ROVER
 
+
 const grid = [
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
 	[" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -117,7 +118,7 @@ function moveBackward(rover) {
 // PILOT FUNCTION USING 'l', 'r', 'f', 'b'
 
 function pilotRover(str) {
-    for (i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i++) {
         switch(str[i]) {
             case "l":
                 turnLeft(rover);
@@ -142,9 +143,10 @@ function pilotRover(str) {
     console.table(grid);
 };
 
-// PROMPT
+// PROMPT & POKEMON
 
 const prompt = require("prompt");
+const axios = require("axios");
 
 const properties = [
     {
@@ -156,8 +158,22 @@ const properties = [
     }
 ];
 
-function play () {
+function start() {
 
+    console.log("Loading...");
+    axios.get("https://pokeapi.co/api/v2/pokemon/?limit=100").then (function (res) {
+        const listPokemon = [];
+
+        for (let i = 0; i < res.data.results.length; i++) {
+            listPokemon.push(res.data.results[i].name);
+        }
+    }).catch (function (error) {
+        return console.error(error);
+    });
+    play();
+};
+
+function play () {
     prompt.start();
 
     function onErr(err) {
@@ -172,4 +188,4 @@ function play () {
     });
 };
 
-play();
+start();
